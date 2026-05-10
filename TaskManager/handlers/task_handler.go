@@ -3,6 +3,7 @@ package handlers
 import (
 	"TaskManager/db"
 	"TaskManager/models"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -79,6 +80,13 @@ func UpdateTask(c *gin.Context) {
 	var input models.UpdateTaskInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if input.Status != "" && !models.IsValidStatus(input.Status) {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"error": fmt.Sprintf("invalid status %q: must be one of pending, in-progress, done", input.Status),
+		})
 		return
 	}
 

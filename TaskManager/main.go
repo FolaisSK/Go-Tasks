@@ -3,6 +3,7 @@ package main
 import (
 	"TaskManager/config"
 	"TaskManager/db"
+	"TaskManager/middleware"
 	"TaskManager/routes"
 	"log"
 
@@ -19,6 +20,7 @@ func main() {
 	db.Connect(cfg)
 
 	r := gin.Default()
+	r.Use(middleware.Logger())
 	routes.SetupRoutes(r)
 	r.Run(":8080")
 }

@@ -42,3 +42,11 @@ type PatchTaskInput struct {
 	Status      *Status    `json:"status"`
 	DueDate     *time.Time `json:"due_date"`
 }
+
+func IsValidStatus(s string) bool {
+	switch Status(s) {
+	case StatusPending, StatusInProgress, StatusDone:
+		return true
+	}
+	return false
+}
