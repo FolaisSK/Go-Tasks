@@ -18,7 +18,7 @@ func Connect(cfg config.Config) {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	if err := DB.AutoMigrate(&models.Task{}, &models.Task{}); err != nil {
+	if err := DB.AutoMigrate(&models.User{}, &models.Task{}); err != nil {
 		log.Fatal("Migration failed:", err)
 	}
 
